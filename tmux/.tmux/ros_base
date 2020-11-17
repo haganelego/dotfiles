@@ -2,37 +2,28 @@
 # 変数設定
 ################
 
-#ROS_PATH="~/ros_ws/kiq_cardbord_detect_ws"
-#COMMAND="cd $ROS_PATH ; source devel/setup.zsh"
+ROS_PATH="~/ros_ws/"
+COMMAND="cd $ROS_PATH"
 
 ##################
 # Paneの作成
 ##################
 select-pane -t 1
+split-window -h
 split-window -v
 select-pane -t 1
-split-window -h
-split-window -h
-select-pane -t 4
-split-window -h
-select-pane -t 4
-split-window -v
-select-pane -t 6
-split-window -v
+split-pane -v
+select-pane -t 1
+split-pane -v
 
-
-##################
-# 整形
-##################
-select-pane -t 2
-
-resize-pane -t 1 -y 7 -x 70
-resize-pane -t 3 -x 70
 
 ##################
 # コマンド
 ##################
+rename-window ROS
 send-keys -t 1 "roscore" C-m
-send-keys -t 3 "htop" C-m
-send-keys -t 2 "tmux clock" C-m
+send-keys -t 2 $COMMAND C-m
+send-keys -t 3 $COMMAND C-m
+send-keys -t 4 $COMMAND C-m
+send-keys -t 5 $COMMAND C-m
 

@@ -88,7 +88,7 @@ chpwd() {
 ####################
 
 function tmux_load {
-    tmux new-session -s $1 \; source-file ~/.tmux/$1
+    tmux source-file ~/.tmux/$1
 }
 
 function _tmux_load {

@@ -1,0 +1,12 @@
+##################
+# Paneの作成
+##################
+select-pane -t 1
+split-window -h
+
+##################
+# コマンド
+##################
+rename-window monitor
+send-keys -t 1 "htop" C-m
+send-keys -t 2 "nvtop" C-m
