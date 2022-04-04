@@ -65,29 +65,6 @@ fi
 #ログイン時に読み込まれる.
 #環境変数の設定などを書く．ここに書かないとGUIで動作するものがバグる
 #####################################################
-# added by Anaconda3 2019.03 installer
-# >>> conda init >>>
-# !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$(CONDA_REPORT_ERRORS=false '/Users/daiju/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    \eval "$__conda_setup"
-#else
-#    if [ -f "/Users/daiju/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/Users/daiju/anaconda3/etc/profile.d/conda.sh"
-#        CONDA_CHANGEPS1=false conda activate base
-#    else
-#        \export PATH="/Users/daiju/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-## <<< conda init <<<
-
-#php added 20191007
-export PATH="/Users/daiju/.composer/vendor/bin":$PATH
-
-#cuda added 20200620
-export PATH="/usr/local/cuda/bin":$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
 
 
 
