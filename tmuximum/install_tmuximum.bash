@@ -13,4 +13,5 @@ else
   mv -f tmuximum-master $HOME/usr/tmuximum
 fi
 
+mkdir -p $HOME/.local/bin
 ln -sf $HOME/usr/tmuximum/tmuximum $HOME/.local/bin/tmuximum
