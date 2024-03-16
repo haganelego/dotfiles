@@ -63,6 +63,7 @@ setopt pushd_ignore_dups
 alias -g G='|grep'
 
 #エイリアス
+alias ls='ls --color'
 alias la='ls -a'
 alias dirs='dirs -v'
 alias t='tmuximum'
@@ -114,4 +115,5 @@ function _rosource {
 
 compdef _rosource rosource
 
-
+# starship
+eval "$(starship init zsh)"
