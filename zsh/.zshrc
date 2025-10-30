@@ -24,12 +24,19 @@ fi
 # 環境変数
 export LANG='en_US.UTF-8'
 
+# brewの補間パスの設定（Macのみ）
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 # 補完機能を有効にする
 autoload -Uz compinit
 compinit
 
 # 補完の選択を楽にする
 zstyle ':completion:*' menu select
+
 
 # 補完候補にファイルの種類も表示する
 setopt list_types
@@ -117,3 +124,6 @@ compdef _rosource rosource
 
 # starship
 eval "$(starship init zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(uv generate-shell-completion zsh)"
