@@ -41,6 +41,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   $HOME/.local/bin
+  /opt/homebrew/bin
   $path
 )
 
@@ -66,12 +67,5 @@ fi
 #ログイン時に読み込まれる.
 #環境変数の設定などを書く．ここに書かないとGUIで動作するものがバグる
 #####################################################
-
-
-
-
-
-
-
-
-
+# API
+source ~/.api_env
