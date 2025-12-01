@@ -127,3 +127,7 @@ eval "$(starship init zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(uv generate-shell-completion zsh)"
+
+# avante ZEN mode
+alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
+

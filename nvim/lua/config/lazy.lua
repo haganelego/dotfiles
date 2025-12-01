@@ -20,9 +20,10 @@ require("lazy").setup({
         { "LazyVim/LazyVim", import = "lazyvim.plugins" },
         -- import/override with your plugins
         { import = "plugins/utils" },
-        { import = "plugins/ai/codecompanion" },
+        -- { import = "plugins/ai/codecompanion" },
         { import = "plugins/ai/copilot" },
-        -- { import = "plugins/ai/avante" },
+        { import = "plugins/ai/avante" },
+        { import = "plugins/ai/mcphub" },
     },
 
     defaults = {
