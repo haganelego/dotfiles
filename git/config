@@ -1,0 +1,8 @@
+
+[user]
+	email = hagane01061998@icloud.com
+	name = haganelego
+[merge]
+	ff = false
+[pull]
+	ff = only

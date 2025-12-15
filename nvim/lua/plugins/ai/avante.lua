@@ -15,7 +15,7 @@ return {
             -- this file can contain specific instructions for your project
             instructions_file = "avante.md",
             -- for exampe
-            provider = "gemini_flash",
+            provider = "claude_haiku",
             providers = {
                 gemini_flash_lite = {
                     __inherited_from = "gemini",
@@ -32,16 +32,18 @@ return {
                     model = "gemini-2.5-pro",
                     timeout = 30000, -- Timeout in milliseconds
                 },
-                claude = {
+                claude_sonnet = {
+                    __inherited_from = "claude",
                     endpoint = "https://api.anthropic.com",
                     model = "claude-sonnet-4-5-20250929",
                     timeout = 30000, -- Timeout in milliseconds
-                    extra_request_body = {
-                        temperature = 0.75,
-                        max_tokens = 20480,
-                    },
                 },
-
+                claude_haiku = {
+                    __inherited_from = "claude",
+                    endpoint = "https://api.anthropic.com",
+                    model = "claude-haiku-4-5-20251001",
+                    timeout = 30000, -- Timeout in milliseconds
+                },
                 ollama = {
                     endpoint = "http://hagane24:11434",
                     model = "qwen2.5-coder:14b",
