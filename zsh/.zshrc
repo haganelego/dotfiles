@@ -74,6 +74,12 @@ alias ls='ls --color'
 alias la='ls -a'
 alias dirs='dirs -v'
 alias t='tmuximum'
+
+# tmux自動起動
+if [[ -z "$TMUX" && -z "$VIM" && "$TERM_PROGRAM" != "vscode" && $- == *l* ]] ; then
+  tmux attach-session -t default || tmux new-session -s default
+fi
+
 ############hook関数####################
 
 # ディレクトリ移動時，自動でls
