@@ -11,15 +11,15 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Function to create a symbolic link
 # $1: source, $2: destination
 create_symlink() {
-    local source="$1"
-    local destination="$2"
-    
-    # Create parent directory if it doesn't exist
-    mkdir -p "$(dirname "$destination")"
-    
-    # Create a forced symbolic link
-    ln -snf "$source" "$destination"
-    echo "Created symlink: $destination -> $source"
+  local source="$1"
+  local destination="$2"
+
+  # Create parent directory if it doesn't exist
+  mkdir -p "$(dirname "$destination")"
+
+  # Create a forced symbolic link
+  ln -snf "$source" "$destination"
+  echo "Created symlink: $destination -> $source"
 }
 
 # ---------------------------------------------
@@ -30,34 +30,34 @@ echo "Starting dotfiles setup..."
 
 # Create ~/.config directory if it doesn't exist
 mkdir -p "$HOME/.config"
+mkdir -p "$HOME/.local/bin"
 
 # --- OS-specific setup ---
 if [[ "$(uname)" == "Darwin" ]]; then
-    echo "macOS detected. Setting up Mac-specific configurations..."
-    create_symlink "$DOTFILES_DIR/aerospace" "$HOME/.config/aerospace"
-    create_symlink "$DOTFILES_DIR/borders" "$HOME/.config/borders"
-    create_symlink "$DOTFILES_DIR/sketchybar" "$HOME/.config/sketchybar"
-    create_symlink "$DOTFILES_DIR/karabiner" "$HOME/.config/karabiner"
+  echo "macOS detected. Setting up Mac-specific configurations..."
+  create_symlink "$DOTFILES_DIR/aerospace" "$HOME/.config/aerospace"
+  create_symlink "$DOTFILES_DIR/borders" "$HOME/.config/borders"
+  create_symlink "$DOTFILES_DIR/sketchybar" "$HOME/.config/sketchybar"
+  create_symlink "$DOTFILES_DIR/karabiner" "$HOME/.config/karabiner"
 fi
 
 # --- Common setup ---
 echo "Setting up common configurations..."
 
 # Git
-create_symlink "$DOTFILES_DIR/git/config" "$HOME/.gitconfig"
-create_symlink "$DOTFILES_DIR/git/ignore" "$HOME/.gitignore_global"
-git config --global core.excludesfile "$HOME/.gitignore_global"
+create_symlink "$DOTFILES_DIR/git" "$HOME/.config/git"
+git config --global core.excludesfile "$HOME/.config/git/global"
 echo "Git configuration linked and set."
 
 # Zsh & Starship
 create_symlink "$DOTFILES_DIR/zsh/.zshrc" "$HOME/.zshrc"
 create_symlink "$DOTFILES_DIR/zsh/.zprofile" "$HOME/.zprofile"
 create_symlink "$DOTFILES_DIR/zsh/starship.toml" "$HOME/.config/starship.toml"
-if ! command -v starship &> /dev/null; then
-    echo "Installing Starship..."
-    curl -sS https://starship.rs/install.sh | sh -s -- -y
+if ! command -v starship &>/dev/null; then
+  echo "Installing Starship..."
+  curl -sS https://starship.rs/install.sh | sh -s -- -y
 else
-    echo "Starship is already installed."
+  echo "Starship is already installed."
 fi
 
 # Neovim
@@ -68,32 +68,16 @@ create_symlink "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 # Let's link the whole directory to allow for local overrides or modules.
 create_symlink "$DOTFILES_DIR/wezterm" "$HOME/.config/wezterm"
 # For compatibility, also link the main file directly if ~/.wezterm.lua is expected.
-create_symlink "$DOTFILES_DIR/wezterm/wezterm.lua" "$HOME/.wezterm.lua"
-
 
 # Tmux
-create_symlink "$DOTFILES_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
-create_symlink "$DOTFILES_DIR/tmux/.tmux" "$HOME/.tmux"
+create_symlink "$DOTFILES_DIR/tmux" "$HOME/.config/tmux"
+create_symlink "$DOTFILES_DIR/tmux/tmux-session-manager" "$HOME/.local/bin/tmux-session-manager"
 
 # fzf (Fuzzy Finder)
 if [ ! -d "$HOME/.fzf" ]; then
-    echo "Installing fzf..."
-    git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
-    "$HOME/.fzf/install" --all # --all installs for all shells without prompts
+  echo "Installing fzf..."
+  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
+  "$HOME/.fzf/install" --all # --all installs for all shells without prompts
 else
-    echo "fzf is already installed."
+  echo "fzf is already installed."
 fi
-
-# tmuximum
-# Based on the original script, install it to ~/.local/share and link binary to ~/.local/bin
-TMUXIMUM_DIR="$HOME/.local/share/tmuximum"
-if [ ! -d "$TMUXIMUM_DIR" ]; then
-    echo "Installing tmuximum..."
-    git clone https://github.com/haganelego/tmuximum.git "$TMUXIMUM_DIR"
-    mkdir -p "$HOME/.local/bin"
-    ln -snf "$TMUXIMUM_DIR/tmuximum" "$HOME/.local/bin/tmuximum"
-else
-    echo "tmuximum is already installed."
-fi
-
-echo "Dotfiles setup completed successfully!"
