@@ -59,37 +59,46 @@ sessions=$(tmux list-sessions -F '#{session_name}' 2>/dev/null | while read -r s
   fi
 done | sort | cut -d'|' -f2)
 
-# tmuxセッション一覧をfzfで表示し、アクションを実行
+# tmuxセッション一覧をfzfで表示
 result=$(echo "$sessions" |
   fzf --prompt="Session: " \
     --preview='tmux list-windows -t {} -F "#{window_index}: #{window_name}"' \
     --preview-window=right:20% \
     --expect=ctrl-q,ctrl-t,ctrl-r \
     --no-select-1 \
-    --header='Enter: switch | ^Q: kill | ^T: new | ^R: rename')
+    --header='Enter: switch/attach | ^Q: kill | ^T: new | ^R: rename')
 
-# fzfがキャンセルされた場合は終了
 if [ -z "$result" ]; then
   exit 0
 fi
 
-# 結果を解析（1行目がキー、2行目が選択されたセッション名）
 key=$(echo "$result" | sed -n '1p')
 session=$(echo "$result" | sed -n '2p')
 
-# アクションに応じて処理
+# セッションにアタッチまたは切り替える共通関数
+switch_or_attach() {
+  local target=$1
+  if [ -z "$TMUX" ]; then
+    # tmuxの外にいる場合
+    tmux attach-session -t "$target"
+  else
+    # tmuxの中にいる場合
+    tmux switch-client -t "$target"
+  fi
+}
+
 case "$key" in
 ctrl-q)
-  # kill: セッション削除
   if [ -n "$session" ]; then
     echo -n "Kill session '$session'? (y/N): "
     read -r answer
-    if [ "$answer" = "y" ] || [ "$answer" = "Y" ]; then
-      # カレントセッションかチェック
-      current_session=$(tmux display-message -p '#S')
-      if [ "$session" = "$current_session" ]; then
-        # カレントセッションの場合は次のセッションに移動してから削除
-        tmux switch-client -n
+    if [[ "$answer" =~ ^[yY]$ ]]; then
+      # tmux内にいる場合のみカレントセッションかチェック
+      if [ -n "$TMUX" ]; then
+        current_session=$(tmux display-message -p '#S')
+        if [ "$session" = "$current_session" ]; then
+          tmux switch-client -n
+        fi
       fi
       tmux kill-session -t "$session"
       echo "Session '$session' killed."
@@ -100,31 +109,24 @@ ctrl-q)
   ;;
 
 ctrl-t)
-  # new: 新規セッション作成
   echo -n "New session name: "
   read -r new_session
   if [ -n "$new_session" ]; then
-    # アイコン選択
     icon=$(select_icon)
-
     full_session_name="$icon $new_session"
     tmux new-session -d -s "$full_session_name"
-    tmux switch-client -t "$full_session_name"
-    echo "Session '$full_session_name' created."
+    switch_or_attach "$full_session_name"
   else
     echo "Cancelled."
   fi
   ;;
 
 ctrl-r)
-  # rename: セッション名変更
   if [ -n "$session" ]; then
     echo -n "New name for '$session': "
     read -r new_name
     if [ -n "$new_name" ]; then
-      # アイコン選択
       icon=$(select_icon)
-
       full_session_name="$icon $new_name"
       tmux rename-session -t "$session" "$full_session_name"
       echo "Session renamed to '$full_session_name'."
@@ -135,9 +137,8 @@ ctrl-r)
   ;;
 
 *)
-  # switch: セッション切り替え（Enterの場合）
   if [ -n "$session" ]; then
-    tmux switch-client -t "$session"
+    switch_or_attach "$session"
   fi
   ;;
 esac

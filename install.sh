@@ -47,6 +47,7 @@ echo "Setting up common configurations..."
 # Git
 create_symlink "$DOTFILES_DIR/git" "$HOME/.config/git"
 git config --global core.excludesfile "$HOME/.config/git/global"
+git config --global core.excludesfile "$HOME/.config/git/ignore"
 echo "Git configuration linked and set."
 
 # Zsh & Starship
