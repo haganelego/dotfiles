@@ -73,12 +73,13 @@ alias -g G='|grep'
 alias ls='ls --color'
 alias la='ls -a'
 alias dirs='dirs -v'
-alias t='tmuximum'
+alias t='tmux-session-manager'
 
 # tmux自動起動
 if [[ -z "$TMUX" && -z "$VIM" && "$TERM_PROGRAM" != "vscode" && $- == *l* ]] ; then
   tmux attach-session -t default || tmux new-session -s default
 fi
+
 
 ############hook関数####################
 
@@ -134,6 +135,5 @@ eval "$(starship init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(uv generate-shell-completion zsh)"
 
-# avante ZEN mode
+# Avante Zen mode
 alias avante='nvim -c "lua vim.defer_fn(function()require(\"avante.api\").zen_mode()end, 100)"'
-

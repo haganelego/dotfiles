@@ -79,6 +79,7 @@ if [ ! -d "$HOME/.fzf" ]; then
   echo "Installing fzf..."
   git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
   "$HOME/.fzf/install" --all # --all installs for all shells without prompts
+  create_symlink "$HOME/.fzf/bin/fzf "$HOME/.local/bin/fzf"
 else
   echo "fzf is already installed."
 fi
