@@ -1,11 +1,17 @@
 #!/bin/bash
 
-SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I \
-  | awk -F: '($1 ~ "^ *SSID$"){print $2}' \
-  | cut -c 2-)
+source "$CONFIG_DIR/colors.sh"
 
-sketchybar --set wifi \
-  icon=󰖩 \
-  #icon.color=0xff39FF14 \
-  icon.align=center \
-  label="$SSID"
+DIM_COLOR="0x40ffffff"
+
+WIFI_IP=$(networksetup -getinfo "Wi-Fi" 2>/dev/null | awk -F': ' '/^IP address/{print $2}')
+
+if [ -n "$WIFI_IP" ]; then
+  sketchybar --set "$NAME" \
+    icon=󰖩 \
+    icon.color="$ACCENT_COLOR"
+else
+  sketchybar --set "$NAME" \
+    icon=󰖪 \
+    icon.color="$DIM_COLOR"
+fi
