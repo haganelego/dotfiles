@@ -9,6 +9,7 @@ bar=(
   border_color="0x00ffffff
   border_width=2
   blur_radius=20
-  color="$BAR_COLOR"
+  color="$BAR_COLOR
+  topmost="window"
 )
 sketchybar --bar "${bar[@]}"

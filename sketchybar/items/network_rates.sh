@@ -1,20 +1,26 @@
 #!/bin/bash
 
-source "$CONFIG_DIR/settings.sh"
-
-if is_dark_mode; then
-    ICON_COLOR=$RED
-else
-    ICON_COLOR=$BLACK
-fi
-
 down=(
-    icon=􁾯
-    icon.color=$ICON_COLOR
+    icon=↓
+    icon.color=$WHITE
     icon.padding_right=5
+    label.padding_right=8
+    padding_left=0
     script="$PLUGIN_DIR/network_rates.sh"
     update_freq=10
 )
+
+up=(
+    icon=↑
+    icon.color=$WHITE
+    icon.padding_right=5
+    label.padding_right=8
+    padding_left=0
+    update_freq=10
+)
+
 sketchybar \
     --add item net_down right \
-    --set net_down "${down[@]}"
+    --set net_down "${down[@]}" \
+    --add item net_up right \
+    --set net_up "${up[@]}"
