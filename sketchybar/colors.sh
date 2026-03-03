@@ -6,6 +6,7 @@ PLAYER_STOP_ICON_COLOR=0xffFC9867
 export WHITE=0xffffffff
 
 export TRANSPARENT=0x00000000
+export ACTIVE_BORDER_COLOR=0xffe06c75
 
 # -- Gruv Box --
 # export CORNER_RADIUS=8

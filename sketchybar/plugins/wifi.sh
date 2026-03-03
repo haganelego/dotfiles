@@ -9,7 +9,7 @@ WIFI_IP=$(networksetup -getinfo "Wi-Fi" 2>/dev/null | awk -F': ' '/^IP address/{
 if [ -n "$WIFI_IP" ]; then
   sketchybar --set "$NAME" \
     icon=󰖩 \
-    icon.color="$ACCENT_COLOR"
+    icon.color="$WHITE"
 else
   sketchybar --set "$NAME" \
     icon=󰖪 \

@@ -4,7 +4,7 @@ sketchybar --add item aerospace_mode left \
   --subscribe aerospace_mode aerospace_mode_change \
   --set aerospace_mode icon="" \
   script="$CONFIG_DIR/plugins/aerospace_mode.sh" \
-  icon.color="$ACCENT_COLOR" \
+  icon.color="$WHITE" \
   icon.padding_left=4 \
   drawing=off
 
@@ -24,11 +24,13 @@ for sid in $(aerospace list-workspaces --all); do
     label.padding_right=7 \
     icon.padding_left=7 \
     icon.padding_right=4 \
-    background.drawing=on \
+    background.drawing=off \
     label.font="sketchybar-app-font:Regular:13.0" \
-    background.color="$ACCENT_COLOR" \
-    icon.color="$BACKGROUND" \
-    label.color="$BACKGROUND" \
+    background.color="$TRANSPARENT" \
+    background.border_color="$ACTIVE_BORDER_COLOR" \
+    background.border_width=0 \
+    icon.color="$WHITE" \
+    label.color="$WHITE" \
     background.corner_radius=7 \
     background.height=19 \
     label.drawing=on \
@@ -38,7 +40,7 @@ done
 
 sketchybar --add item space_separator left \
   --set space_separator icon="|" \
-  icon.color="$ACCENT_COLOR" \
+  icon.color="$WHITE" \
   icon.padding_left=4 \
   icon.padding_right=7 \
   label.drawing=off \

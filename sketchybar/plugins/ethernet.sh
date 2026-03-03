@@ -20,7 +20,7 @@ done < <(networksetup -listallnetworkservices 2>/dev/null | tail -n +2)
 if [ "$ETHERNET_CONNECTED" = true ]; then
   sketchybar --set "$NAME" \
     icon=󰈀 \
-    icon.color="$ACCENT_COLOR"
+    icon.color="$WHITE"
 else
   sketchybar --set "$NAME" \
     icon=󰈀 \
