@@ -24,3 +24,5 @@ source "$ITEM_DIR/network_rates.sh"
 # source "$ITEM_DIR/weather.sh"
 
 sketchybar --update
+pkill -x sketchybar-toggle
+sketchybar-toggle &
