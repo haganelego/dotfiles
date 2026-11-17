@@ -2,11 +2,13 @@
 
 sketchybar --add item aerospace_mode left \
   --subscribe aerospace_mode aerospace_mode_change \
-  --set aerospace_mode icon="" \
+  --set aerospace_mode icon="" \
   script="$CONFIG_DIR/plugins/aerospace_mode.sh" \
   icon.color="$WHITE" \
   icon.padding_left=4 \
   drawing=off
+
+SPACE_ITEMS=()
 
 for sid in $(aerospace list-workspaces --all); do
   monitor=$(aerospace list-windows --workspace "$sid" --format "%{monitor-appkit-nsscreen-screens-id}")
@@ -31,18 +33,20 @@ for sid in $(aerospace list-workspaces --all); do
     background.border_width=0 \
     icon.color="$WHITE" \
     label.color="$WHITE" \
-    background.corner_radius=7 \
+    background.corner_radius=0 \
     background.height=19 \
     label.drawing=on \
     click_script="aerospace workspace $sid" \
     script="$CONFIG_DIR/plugins/aerospace.sh $sid"
+
+  SPACE_ITEMS+=("space.$sid")
 done
 
-sketchybar --add item space_separator left \
-  --set space_separator icon="|" \
-  icon.color="$WHITE" \
-  icon.padding_left=4 \
-  icon.padding_right=7 \
-  label.drawing=off \
-  background.drawing=off
-
+sketchybar --add bracket spaces "${SPACE_ITEMS[@]}" \
+  --set spaces \
+  background.drawing=on \
+  background.color="$ITEM_BG_COLOR" \
+  background.corner_radius=0 \
+  background.height=26 \
+  background.border_color=0xff3b4261 \
+  background.border_width=2

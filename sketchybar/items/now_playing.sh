@@ -4,13 +4,16 @@ now_playing=(
     label.padding_left=0
     label.padding_right=6
     background.padding_right=2
-    #background.padding_left=0
     update_freq=5
     label.font.style="Bold Italic"
     script="$PLUGIN_DIR/now_playing.sh"
     background.drawing=on
-    background.color=0xffffffff
-    label.color=0xff5699af
+    background.color=0xff292e42
+    background.corner_radius=0
+    background.height=26
+    background.border_color=0xff3b4261
+    background.border_width=2
+    label.color=0xff7dcfff
     drawing=off
     display=1
 )
@@ -22,9 +25,3 @@ sketchybar --add item now_playing left \
     --subscribe now_playing now_playing_update media_change mouse.clicked mouse.scrolled
 
 # `now_playing_update` event triggering in karabiner elements config after changing MPD player controlling
-
-# click_script="mpc toggle ; echo $SENDER > /tmp/logs.txt" \
-    #click_script="mpc toggle" \
-    # icon.font="SF Pro:Semibold:15.0" \
-    # label.font="SF Pro:Medium:12.0" \
-    # background.color=$BACKGROUND_1 \

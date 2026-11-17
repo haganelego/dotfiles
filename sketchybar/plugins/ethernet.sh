@@ -2,7 +2,7 @@
 
 source "$CONFIG_DIR/colors.sh"
 
-DIM_COLOR="0x40ffffff"
+DIM_COLOR="0x40c0caf5"
 
 ETHERNET_CONNECTED=false
 while IFS= read -r service; do

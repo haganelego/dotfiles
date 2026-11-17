@@ -5,11 +5,11 @@ bar=(
   height=30
   margin=6
   y_offset=4
-  corner_radius="$CORNER_RADIUS"
-  border_color="0x00ffffff
-  border_width=2
+  corner_radius=0
+  border_color=0x00000000
+  border_width=0
   blur_radius=20
-  color="$BAR_COLOR
+  color="$BAR_COLOR"
   topmost="window"
 )
 sketchybar --bar "${bar[@]}"

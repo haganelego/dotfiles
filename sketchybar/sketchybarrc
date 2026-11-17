@@ -12,16 +12,17 @@ source "$ITEM_DIR/front_app.sh"
 
 source "$ITEM_DIR/now_playing.sh"
 
-# source "$ITEM_DIR/cron.sh"
+# Right side: items are placed right-to-left in source order
+# Group 1 (rightmost): Other — calendar, battery, volume
 source "$ITEM_DIR/calendar.sh"
 source "$ITEM_DIR/battery.sh"
 source "$ITEM_DIR/volume.sh"
-source "$ITEM_DIR/wifi.sh"
+# Group 2: Resources — cpu, memory
 source "$ITEM_DIR/cpu.sh"
 source "$ITEM_DIR/memory.sh"
+# Group 3 (leftmost): Network — wifi, ethernet, net_down, net_up
+source "$ITEM_DIR/wifi.sh"
 source "$ITEM_DIR/network_rates.sh"
-# source "$ITEM_DIR/caffeinate.sh"
-# source "$ITEM_DIR/weather.sh"
 
 sketchybar --update
 pkill -x sketchybar-toggle

@@ -2,7 +2,7 @@
 
 source "$CONFIG_DIR/colors.sh"
 
-DIM_COLOR="0x40ffffff"
+DIM_COLOR="0x40c0caf5"
 
 WIFI_IP=$(networksetup -getinfo "Wi-Fi" 2>/dev/null | awk -F': ' '/^IP address/{print $2}')
 

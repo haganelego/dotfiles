@@ -1,7 +1,12 @@
 #!/bin/bash
 
 sketchybar --add item front_app left \
-           --set front_app background.drawing=off update_freq=6\
+           --set front_app update_freq=6 \
+              padding_left=8 \
+              background.drawing=on \
+              background.corner_radius=0 \
+              background.border_color=0xff3b4261 \
+              background.border_width=2 \
               icon.color="$WHITE" \
               icon.font="sketchybar-app-font:Regular:13.0" \
               label.color="$WHITE" \
